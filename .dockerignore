@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+
+# Data & caches
+chroma_db/
+.cache/
+.pytest_cache/
+.mypy_cache/
+
+# Large assets
+data/
+*.pdf
+
+# Docker
+Dockerfile
+docker-compose.yml

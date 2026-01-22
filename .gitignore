@@ -1,0 +1,20 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Vector DB & data
+chroma_db/
+data/
+extracted_images/
+
+# OS
+.DS_Store
+
+# tests
+test_import.py
+check_env.py
