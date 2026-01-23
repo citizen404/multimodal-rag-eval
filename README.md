@@ -1,26 +1,28 @@
-Multimodal RAG & Evaluation Prototype
-Overview
+# Multimodal RAG & Evaluation Prototype
 
-This project implements a lightweight, evaluation-driven multimodal RAG system for question answering over complex PDF documents containing text, tables, and images.
+## Overview
 
-The primary goal is architectural clarity, controllability, and reproducibility, rather than maximizing raw model performance.
-The system is designed as a clean reference implementation of a production-oriented RAG pipeline with explicit ingestion, retrieval, generation, and evaluation stages.
+  This project implements a lightweight, evaluation-driven multimodal RAG system for question answering over complex PDF documents containing text, tables, and images.
 
-"""
-Architecture
-
-End-to-end pipeline:
-PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation
-
-Key design principles
-
-Text-only retrieval layer for simplicity, debuggability, and reproducible evaluation
-Explicit separation between ingestion, retrieval, generation, and evaluation
-Retrieval-first architecture with no hidden or duplicated context fetching
-Evaluation as a first-class component, not an afterthought
+  The primary goal is architectural clarity, controllability, and reproducibility, rather than maximizing raw model performance.
+  The system is designed as a clean reference implementation of a production-oriented RAG pipeline with explicit ingestion, retrieval, generation, and evaluation stages.
 
 """
-Components
+## Architecture
+
+  End-to-end pipeline:
+  PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation
+
+## Key design principles
+
+  Text-only retrieval layer for simplicity, debuggability, and reproducible evaluation
+  Explicit separation between ingestion, retrieval, generation, and evaluation
+  Retrieval-first architecture with no hidden or duplicated context fetching
+  Evaluation as a first-class component, not an afterthought
+
+"""
+## Components
+
 1. Ingestion Pipeline
 
 The ingestion module converts complex PDF documents into a unified, text-based knowledge representation.
@@ -76,13 +78,13 @@ A simple CLI interface is provided for interactive querying.
 - Each answer is returned together with its source references.
 
 """
-Setup (Docker – Recommended)
+## Setup (Docker – Recommended)
 The Docker setup keeps the image stateless and mounts documents and the vector store at runtime.
 
 1. Create a data/ folder in the root and place PDF documents there:
 
 mkdir data
-# put your PDF files into ./data
+put your PDF files into ./data folder
     
 2. Configure API key
 
@@ -107,7 +109,7 @@ docker run -it --rm \
 
 
 """
-Setup (Local)
+## Setup (Local)
 
 pip install -r requirements.txt
 
@@ -116,14 +118,14 @@ export OPENAI_API_KEY=sk-your_key_here
 python main.py
 
 """
-Evaluation Framework
+## Evaluation Framework
 
 python3 evaluate_rag.py
 
 Results are saved to evaluation_report.csv.
 
 """
-Prompting Strategy
+## Prompting Strategy
 
 The generation step uses a strict system prompt to minimize hallucinations:
 - Answers are based only on retrieved context
@@ -133,7 +135,7 @@ The generation step uses a strict system prompt to minimize hallucinations:
 This prompt is intentionally conservative to support evaluation-driven iteration.
 
 """
-Notes on Design Choices
+## Notes on Design Choices
 - Images are processed via LLM-based captioning instead of multimodal embeddings
 - Retrieval remains fully text-based
 - The architecture favors transparency and measurement over raw model capability
