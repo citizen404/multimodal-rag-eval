@@ -128,7 +128,6 @@ The generation step uses a strict system prompt to minimize hallucinations:
 
 This prompt is intentionally conservative to support evaluation-driven iteration.
 
-"""
 ## Notes on Design Choices
 - Images are processed via LLM-based captioning instead of multimodal embeddings
 - Retrieval remains fully text-based
