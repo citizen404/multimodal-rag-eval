@@ -7,7 +7,6 @@
   The primary goal is architectural clarity, controllability, and reproducibility, rather than maximizing raw model performance.
   The system is designed as a clean reference implementation of a production-oriented RAG pipeline with explicit ingestion, retrieval, generation, and evaluation stages.
 
-"""
 ## Architecture
 
   End-to-end pipeline:
@@ -20,7 +19,6 @@
   Retrieval-first architecture with no hidden or duplicated context fetching
   Evaluation as a first-class component, not an afterthought
 
-"""
 ## Components
 
 1. Ingestion Pipeline
@@ -68,8 +66,6 @@ The project includes an automated evaluation pipeline based on RAGAS.
 
 Evaluation results are exported to CSV, enabling reproducible comparison across runs and configurations.
 
-"""
-
 4. CLI Interface
 
 A simple CLI interface is provided for interactive querying.
@@ -77,13 +73,15 @@ A simple CLI interface is provided for interactive querying.
 - Subsequent runs reuse the persisted vector store.
 - Each answer is returned together with its source references.
 
-"""
 ## Setup (Docker – Recommended)
 The Docker setup keeps the image stateless and mounts documents and the vector store at runtime.
 
 1. Create a data/ folder in the root and place PDF documents there:
 
+```bash
 mkdir data
+```
+
 put your PDF files into ./data folder
     
 2. Configure API key
@@ -97,34 +95,29 @@ OPENAI_API_KEY=sk-your_key_here
 docker build -t multimodal-rag .
 
 4. Run:
+```bash
 docker run -it --rm \
   --env-file .env \
   -v "$(pwd)/data:/app/data" \
   -v "$(pwd)/chroma_db:/app/chroma_db" \
   multimodal-rag
-
+```
 - data/ is mounted as input documents
 - chroma_db/ is persisted between runs
 - Ingestion is triggered automatically if no vector store exists
 
-
-"""
 ## Setup (Local)
-
+```bash
 pip install -r requirements.txt
-
 export OPENAI_API_KEY=sk-your_key_here
-
 python main.py
-
-"""
+```
 ## Evaluation Framework
-
-python3 evaluate_rag.py
-
+```bash
+python evaluate_rag.py
+```
 Results are saved to evaluation_report.csv.
 
-"""
 ## Prompting Strategy
 
 The generation step uses a strict system prompt to minimize hallucinations:
@@ -139,4 +132,4 @@ This prompt is intentionally conservative to support evaluation-driven iteration
 - Images are processed via LLM-based captioning instead of multimodal embeddings
 - Retrieval remains fully text-based
 - The architecture favors transparency and measurement over raw model capability
-- The system is designed to be easily extended with reranking, alternative retrievers, or agent orchestration
+- The system is designed to be easily extended with reranking, alternative retrievers, or agent orchestratio
