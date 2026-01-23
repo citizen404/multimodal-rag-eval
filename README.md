@@ -110,7 +110,9 @@ docker run -it --rm \
 Setup (Local)
 
 pip install -r requirements.txt
+
 export OPENAI_API_KEY=sk-your_key_here
+
 python main.py
 
 """
