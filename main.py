@@ -12,28 +12,30 @@ if not os.getenv("OPENAI_API_KEY"):
 
 def main():
     rag = RAGSystem()
-    
-    # Изменено: если базы нет, обрабатываем всю папку data/ вместо одного файла
-    if not os.path.exists("chroma_db"):
-        print("База не найдена. Начинаем парсинг всей папки data...")
-        processor = PDFProcessor()
-        all_chunks = []
-        
-        # Собираем чанки из всех PDF в папке data/
-        data_dir = "data"
-        if os.path.exists(data_dir):
-            for file in os.listdir(data_dir):
-                if file.endswith(".pdf"):
-                    chunks = processor.process(os.path.join(data_dir, file))
-                    all_chunks.extend(chunks)
-        
-        if not all_chunks:
-            print("Ошибка: В папке 'data' не найдено PDF или чанки не созданы.")
-            return
+    processor = PDFProcessor()
+    data_dir = "data"
 
-        rag.build_or_load_index(all_chunks)
-    else:
+    # 1. Пробуем загрузить базу, если она есть
+    if os.path.exists("chroma_db"):
         rag.build_or_load_index()
+    
+    # 2. Проверяем папку data
+    # Метод get_indexed_files теперь вернет пустой набор, если базы нет
+    indexed_files = rag.get_indexed_files() 
+    new_chunks = []
+
+    if os.path.exists(data_dir):
+        for file in os.listdir(data_dir):
+            if file.endswith(".pdf") and file not in indexed_files:
+                print(f"Новый файл: {file}")
+                new_chunks.extend(processor.process(os.path.join(data_dir, file)))
+
+    # 3. Если нашли новое — добавляем. Если базы не было — она создастся тут.
+    if new_chunks:
+        rag.add_to_index(new_chunks)
+    elif not os.path.exists("chroma_db"):
+        print("База пуста и новых файлов нет. Положите PDF в папку 'data'.")
+        return
 
     print("\n--- RAG Система Готова (OpenAI) ---")
     

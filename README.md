@@ -29,8 +29,8 @@ The ingestion module converts complex PDF documents into a unified, text-based k
 - This enables reuse of a standard text-only RAG pipeline while still capturing non-textual information.
 
 Chunking strategy
-- Structural splitting by Markdown headers
-- Recursive character-based splitting for size control
+- Structural awareness using recursive character splitting
+- Optimized for Markdown: preserves headers, lists, and table integrity
 - Each chunk is enriched with metadata (source document, content type)
 
 Design trade-off

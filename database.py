@@ -41,6 +41,29 @@ class RAGSystem:
             else:
                 raise ValueError("База данных не найдена по указанному пути.")
 
+    def get_indexed_files(self):
+        """Возвращает список имен файлов, которые уже есть в базе."""
+        if not self.vector_store:
+            # Если база не загружена, пробуем загрузить её
+            if os.path.exists(self.index_path):
+                self.build_or_load_index()
+            else:
+                return set()
+        
+        # Получаем все данные из базы
+        data = self.vector_store.get()
+        # Вытаскиваем имена файлов из метаданных
+        return set(meta.get("source") for meta in data["metadatas"])
+
+    def add_to_index(self, chunks):
+        """Добавляет новые кусочки в существующую базу."""
+        if not self.vector_store:
+            self.build_or_load_index(chunks)
+        else:
+            print(f"Добавление {len(chunks)} новых чанков в базу...")
+            self.vector_store.add_documents(chunks)
+            print("База обновлена.")
+    
     def query(self, user_question):
         if not self.vector_store:
             return "База данных не инициализирована.", []

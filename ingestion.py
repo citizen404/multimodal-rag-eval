@@ -21,7 +21,7 @@ class PDFProcessor:
         """Очистка текста."""
         # Удаляем ссылки [1], [1, 2]
         text = re.sub(r'\[\d+(?:,\s*\d+)*\]', '', text)
-        text = re.sub(r'\[\d+–\d+\]', '', text)
+        text = re.sub(r'\[\d+[–-]\d+\]', '', text)
         # Удаляем артефакты форматирования
         text = text.replace('**', '').replace('_', '')
         # Оставляем только одиночные переносы строк для сохранения списков
@@ -43,7 +43,7 @@ class PDFProcessor:
                         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_image}"}}
                     ],
                 }],
-                max_tokens=200
+                max_tokens=200 # cost control
             )
             return response.choices[0].message.content
         except Exception:
@@ -67,8 +67,8 @@ class PDFProcessor:
 
         # 3. Гранулярное разбиение
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,         # Маленький размер для захвата мелких деталей
-            chunk_overlap=200,      # Достаточный нахлест, чтобы не терять на стыках
+            chunk_size=1000,         # для захвата мелких деталей
+            chunk_overlap=200,      # нахлест, чтобы не терять на стыках
             separators=["\n\n", "\n", ". ", " ", ""],
             length_function=len
         )
