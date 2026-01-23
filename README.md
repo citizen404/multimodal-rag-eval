@@ -86,10 +86,11 @@ put your PDF files into ./data folder
     
 2. Configure API key
 
-Create a .env file in the project root:
+Create a .env file in the project root, put this:
 
+```.env
 OPENAI_API_KEY=sk-your_key_here
-
+```
 3. Build Docker image
 
 docker build -t multimodal-rag .
