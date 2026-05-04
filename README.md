@@ -10,7 +10,9 @@
 ## Architecture
 
   End-to-end pipeline:
-  ```PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation```
+  ```
+  PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation
+```
 
 ## Key design principles
 
@@ -93,7 +95,9 @@ OPENAI_API_KEY=sk-your_key_here
 ```
 3. Build Docker image
 
-docker build -t multimodal-rag .
+```bash
+docker build -t multimodal-rag
+```
 
 4. Run:
 ```bash
