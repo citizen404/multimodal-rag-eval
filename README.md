@@ -10,7 +10,7 @@
 ## Architecture
 
   End-to-end pipeline:
-  PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation
+  ```PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation```
 
 ## Key design principles
 
