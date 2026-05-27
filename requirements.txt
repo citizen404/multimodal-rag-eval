@@ -12,3 +12,6 @@ ragas>=0.4.0
 datasets>=2.0.0
 
 numpy>=1.24
+
+langgraph>=0.2.0
+langchain-text-splitters>=0.2.0
