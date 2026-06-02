@@ -10,16 +10,16 @@
 ## Architecture
 
   End-to-end pipeline:
-  ```
+```
   PDF → Markdown → Chunking → Embeddings → Vector Store → Retrieval → Controlled Generation → Evaluation
 ```
 
 ## Key design principles
 
-  Text-only retrieval layer for simplicity, debuggability, and reproducible evaluation
-  Explicit separation between ingestion, retrieval, generation, and evaluation
-  Retrieval-first architecture with no hidden or duplicated context fetching
-  Evaluation as a first-class component, not an afterthought
+- Text-only retrieval layer for simplicity, debuggability, and reproducible evaluation
+- Explicit separation between ingestion, retrieval, generation, and evaluation
+- Retrieval-first architecture with no hidden or duplicated context fetching
+- Evaluation as a first-class component, not an afterthought
 
 ## Components
 
